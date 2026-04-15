@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5월 주차별 집중 카테고리 추천</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; padding: 2rem; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h2 { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .section-title { font-size: 13px; color: #888; margin-bottom: 16px; }
+  .week-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 2rem; }
+  .week-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 14px; }
+  .week-label { font-size: 12px; color: #888; margin-bottom: 6px; }
+  .week-num { font-size: 17px; font-weight: 500; margin-bottom: 10px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; margin: 2px 2px 2px 0; }
+  .tag-focus { background: #EEEDFE; color: #3C3489; }
+  .tag-warning { background: #FAECE7; color: #993C1D; }
+  .tag-ok { background: #EAF3DE; color: #3B6D11; }
+  .mom-row { font-size: 12px; color: #888; margin-top: 8px; }
+  .sub-note { font-size: 11px; color: #aaa; margin-top: 6px; line-height: 1.5; }
+  .bar-wrap { position: relative; width: 100%; height: 220px; margin-bottom: 2rem; }
+  h2.section { margin-bottom: 12px; }
+  .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .insight-card { background: #f5f5f3; border-radius: 8px; padding: 12px; }
+  .insight-week { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .insight-cat { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .insight-reason { font-size: 12px; color: #666; line-height: 1.5; }
+</style>
+</head>
+<body>
+<a href="index.html" style="position:fixed;top:14px;right:20px;z-index:9999;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);color:#e2e8f0;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;text-decoration:none;font-family:'Segoe UI','Malgun Gothic',sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.25)" onmouseover="this.style.background='#0f3460'" onmouseout="this.style.background='#1a1a2e'">← 메인으로</a>
+
+<div class="wrap">
+  <h2>5월 주차별 집중 카테고리 추천</h2>
+  <p class="section-title">5월 주문건수 데이터 기준 — 주차별 강세·약세 패턴 분석</p>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <div class="week-label">5월 1주차</div>
+      <div class="week-num">2,375건</div>
+      <span class="tag tag-focus">키즈너링 ★</span>
+      <span class="tag tag-focus">옷장수납팀</span>
+      <span class="tag tag-warning">소파가실팀</span>
+      <div class="mom-row">전월 대비 총합 -3%</div>
+      <div class="sub-note">키즈 674건으로 전체 최고<br>옷장 404건으로 안정적</div>
+    </div>
+    <div class="week-card" style="border-color: #AFA9EC;">
+      <div class="week-label">5월 2주차 🔥 최고점</div>
+      <div class="week-num">6,312건</div>
+      <span class="tag tag-focus">키즈너링 ★★</span>
+      <span class="tag tag-focus">옷장수납팀 ★</span>
+      <span class="tag tag-focus">서재자녀방 ★</span>
+      <div class="mom-row">주간 최대 수량</div>
+      <div class="sub-note">키즈 2,061건 — 5월 최강<br>옷장 1,213건으로 급증<br>서재 1,036건 (+142%) 급등</div>
+    </div>
+    <div class="week-card">
+      <div class="week-label">5월 3주차</div>
+      <div class="week-num">3,789건</div>
+      <span class="tag tag-focus">옷장수납팀</span>
+      <span class="tag tag-ok">서재자녀방</span>
+      <span class="tag tag-warning">침실팀</span>
+      <div class="mom-row">2주차 대비 하락</div>
+      <div class="sub-note">옷장 912건 유지<br>서재 837건 안정<br>침실 591건 소폭 하락</div>
+    </div>
+    <div class="week-card">
+      <div class="week-label">5월 4주차</div>
+      <div class="week-num">4,295건</div>
+      <span class="tag tag-focus">옷장수납팀</span>
+      <span class="tag tag-focus">소파가실팀</span>
+      <span class="tag tag-ok">서재자녀방</span>
+      <div class="mom-row">3주차 대비 반등</div>
+      <div class="sub-note">옷장 1,008건으로 반등<br>소파 512건 회복세<br>서재 777건 유지</div>
+    </div>
+  </div>
+
+  <div class="bar-wrap">
+    <canvas id="chart1" role="img" aria-label="5월 주차별 카테고리 주문건수 막대 차트">5월 1~4주차 카테고리별 주문건수 비교</canvas>
+  </div>
+
+  <h2 class="section">행사 집중 전략 요약</h2>
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="insight-week">5월 1주차</div>
+      <div class="insight-cat">키즈너링 선제 공략</div>
+      <div class="insight-reason">키즈가 674건으로 1주차 최다. 5월 어린이날(5일) 수요 선점 효과 — 사전 프로모션으로 띄우기 적합</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-week">5월 2주차</div>
+      <div class="insight-cat">키즈 + 옷장 + 서재자녀방 집중 투자</div>
+      <div class="insight-reason">키즈 2,061건·옷장 1,213건·서재 1,036건(전주 대비 +142%). 어린이날 이후 "아이 공간 리뉴얼" 수요 폭증 — 키즈·서재를 테마로 묶고 옷장은 별도 수납 기획전으로 병행</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-week">5월 3주차</div>
+      <div class="insight-cat">옷장 + 서재 유지</div>
+      <div class="insight-reason">전체 하락 구간. 옷장·서재는 상대적으로 안정. 할인보다 리텐션 위주 캠페인 권장</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-week">5월 4주차</div>
+      <div class="insight-cat">옷장 + 소파가실 재점화</div>
+      <div class="insight-reason">옷장 1,008건·소파 512건으로 반등. 월말 재구매 유도·가정의 달 마무리 기획전 효과 기대</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const labels = ['5월 1주차','5월 2주차','5월 3주차','5월 4주차'];
+const datasets = [
+  { label: '서재자녀방', data: [428,1036,837,777], backgroundColor: '#AFA9EC' },
+  { label: '소파가실팀', data: [236,589,329,383], backgroundColor: '#5DCAA5' },
+  { label: '식탁소가구팀', data: [261,566,389,512], backgroundColor: '#F0997B' },
+  { label: '옷장수납팀', data: [404,1213,912,1008], backgroundColor: '#378ADD' },
+  { label: '침실팀', data: [372,847,591,777], backgroundColor: '#C0DD97' },
+  { label: '키즈너링', data: [674,2061,731,838], backgroundColor: '#7F77DD' },
+];
+new Chart(document.getElementById('chart1'), {
+  type: 'bar',
+  data: { labels, datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { font: { size: 11 }, boxWidth: 10, boxHeight: 10, padding: 12, color: '#888' }
+      }
+    },
+    scales: {
+      x: { stacked: true, ticks: { color: '#888', font: { size: 11 }, autoSkip: false } },
+      y: { stacked: true, ticks: { color: '#888', font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>

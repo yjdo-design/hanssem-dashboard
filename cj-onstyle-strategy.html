@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한샘 × CJ 온스타일 — 역할별 상시 매출 전략</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+
+  h1 { font-size: 20px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 2rem; }
+
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: #aaa; margin-bottom: 10px;
+  }
+  .divider { border: none; border-top: 0.5px solid #ddd; margin: 1.75rem 0; }
+
+  .legend { display: flex; gap: 18px; margin-bottom: 1.5rem; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #555; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+  .s-card {
+    background: #fff;
+    border: 0.5px solid #e0ddd7;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .s-header { display: flex; align-items: flex-start; gap: 10px; padding: 1rem 1.2rem 0.8rem; }
+  .s-num { font-size: 10px; font-weight: 600; color: #bbb; min-width: 20px; padding-top: 2px; }
+  .s-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+  .s-desc { font-size: 11.5px; color: #777; line-height: 1.55; }
+
+  .s-body {
+    border-top: 0.5px solid #ece9e4;
+    padding: 0.8rem 1.2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 10px;
+  }
+  .role-block { border-radius: 8px; padding: 0.7rem 0.85rem; }
+  .role-block.hanssem { background: #EEEDFE; }
+  .role-block.cj { background: #E1F5EE; }
+  .role-label { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 5px; }
+  .role-label.hanssem { color: #3C3489; }
+  .role-label.cj { color: #085041; }
+  .role-items { font-size: 11px; line-height: 1.75; }
+  .role-items.hanssem { color: #534AB7; }
+  .role-items.cj { color: #0F6E56; }
+
+  .effort-bar { display: flex; gap: 5px; align-items: center; padding: 0 1.2rem 0.8rem; }
+  .effort-label { font-size: 10px; color: #bbb; margin-right: 4px; }
+  .pip { width: 6px; height: 6px; border-radius: 50%; background: #e0ddd7; }
+  .pip-purple { background: #7F77DD; }
+  .pip-teal { background: #1D9E75; }
+  .pip-amber { background: #BA7517; }
+  .effort-text { font-size: 10px; color: #aaa; margin-left: 4px; }
+
+  .note {
+    background: #eeecea;
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    font-size: 11.5px;
+    color: #666;
+    line-height: 1.65;
+    margin-top: 0.5rem;
+  }
+  .note strong { color: #1a1a1a; font-weight: 600; }
+</style>
+</head>
+<body>
+<a href="index.html" style="position:fixed;top:14px;right:20px;z-index:9999;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);color:#e2e8f0;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;text-decoration:none;font-family:'Segoe UI','Malgun Gothic',sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.25)" onmouseover="this.style.background='#0f3460'" onmouseout="this.style.background='#1a1a2e'">← 메인으로</a>
+
+<div class="container">
+  <h1>한샘 × CJ 온스타일 — 역할별 상시 매출 전략</h1>
+  <p class="subtitle">입점사(한샘) 직접 실행 vs CJ에 협의·요청 — 역할 분담 기준 정리</p>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#7F77DD;"></div>한샘이 직접 실행</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;"></div>CJ에 협의·요청</div>
+  </div>
+
+  <!-- 01 -->
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">01</span>
+      <div>
+        <div class="s-title">주차별 공간 테마 이벤트</div>
+        <div class="s-desc">침실·거실·주방 등 공간 키워드 단위로 묶어, 한샘이 가격을 내리고 CJ가 노출·쿠폰을 얹는 구조</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="role-block hanssem">
+        <div class="role-label hanssem">한샘 실행</div>
+        <div class="role-items hanssem">테마별 묶음 상품 기획<br>해당 기간 가격 인하 (5~15%)<br>대표 이미지·소재 제공</div>
+      </div>
+      <div class="role-block cj">
+        <div class="role-label cj">CJ 협의·요청</div>
+        <div class="role-items cj">SRP·SDP 테마 딱지 부착<br>온스타일 쿠폰 추가 지원<br>카테고리 상단 고정 노출</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실현 가능성</span>
+      <div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-teal"></div><div class="pip"></div>
+      <span class="effort-text">협의 난이도 낮음 — 타 입점사도 유사 구조 운영</span>
+    </div>
+  </div>
+
+  <!-- 02 -->
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">02</span>
+      <div>
+        <div class="s-title">라이브 VOD 연계 상시 딜 페이지</div>
+        <div class="s-desc">방송이 끝난 후에도 "방송 혜택가"를 일정 기간 유지, VOD 시청자가 바로 구매할 수 있게 연결</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="role-block hanssem">
+        <div class="role-label hanssem">한샘 실행</div>
+        <div class="role-items hanssem">방송 후 N일 연장 가격 확정<br>재고 수량 사전 확보<br>VOD용 상품 상세 소재 보완</div>
+      </div>
+      <div class="role-block cj">
+        <div class="role-label cj">CJ 협의·요청</div>
+        <div class="role-items cj">VOD 내 상품 클릭 연동<br>"방송가 연장" 배지 노출<br>VOD 종료 후 딜 페이지 이동</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실현 가능성</span>
+      <div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip"></div>
+      <span class="effort-text">VOD 트래픽을 구매로 전환하는 가장 직접적인 방법</span>
+    </div>
+  </div>
+
+  <!-- 03 -->
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">03</span>
+      <div>
+        <div class="s-title">시즌·생활 이슈 선제 기획전</div>
+        <div class="s-desc">이사 성수기·신학기·환절기 등 수요가 예측되는 시점에, 한샘이 먼저 기획전 소재를 CJ에 제안</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="role-block hanssem">
+        <div class="role-label hanssem">한샘 실행</div>
+        <div class="role-items hanssem">시즌 캘린더 기반 MD 기획<br>묶음 할인 조건 설계<br>키비주얼·카피 제작 선제공</div>
+      </div>
+      <div class="role-block cj">
+        <div class="role-label cj">CJ 협의·요청</div>
+        <div class="role-items cj">기획전 전용 랜딩 페이지<br>앱 푸시·메인 배너 노출<br>검색 키워드 연동 노출</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실현 가능성</span>
+      <div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-teal"></div><div class="pip pip-teal"></div>
+      <span class="effort-text">한샘이 소재 선제공 시 CJ 측 수락률 높음</span>
+    </div>
+  </div>
+
+  <!-- 04 -->
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">04</span>
+      <div>
+        <div class="s-title">재입고·한정수량 푸시 알림 요청</div>
+        <div class="s-desc">품절 이력이 있는 상품 재입고 시, CJ 푸시 채널을 통해 찜 고객에게 즉시 알림 발송 협의</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="role-block hanssem">
+        <div class="role-label hanssem">한샘 실행</div>
+        <div class="role-items hanssem">재입고 일정 사전 공유<br>푸시 발송용 상품 정보 전달<br>한정 수량·마감일 명시</div>
+      </div>
+      <div class="role-block cj">
+        <div class="role-label cj">CJ 협의·요청</div>
+        <div class="role-items cj">찜 고객 대상 타겟 푸시<br>SRP 내 "재입고" 딱지 표시<br>재입고 알림 신청 UI 운영</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실현 가능성</span>
+      <div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip"></div><div class="pip"></div>
+      <span class="effort-text">CJ 시스템 연동 필요 — 담당 MD와 사전 조율 필수</span>
+    </div>
+  </div>
+
+  <!-- 05 -->
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">05</span>
+      <div>
+        <div class="s-title">번들·코디 세트 상품 구성</div>
+        <div class="s-desc">침대+매트리스, 소파+테이블처럼 공간 단위 코디 세트를 상시 상품으로 구성해 객단가 상승 유도</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="role-block hanssem">
+        <div class="role-label hanssem">한샘 실행</div>
+        <div class="role-items hanssem">공간 코디 세트 상품 등록<br>세트 할인율 설계 (단품 대비)<br>코디컷 이미지 제작</div>
+      </div>
+      <div class="role-block cj">
+        <div class="role-label cj">CJ 협의·요청</div>
+        <div class="role-items cj">SDP 내 "함께 구매" 영역 노출<br>세트 전용 기획전 탭 구성<br>코디 테마 검색 태그 연동</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실현 가능성</span>
+      <div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-teal"></div><div class="pip"></div>
+      <span class="effort-text">상품 구성은 한샘 자체 실행 가능, CJ 노출 협의 필요</span>
+    </div>
+  </div>
+
+  <!-- 06 -->
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">06</span>
+      <div>
+        <div class="s-title">상시 할부·혜택 조건 강화</div>
+        <div class="s-desc">고가 가구 특성상 무이자 할부 개월 수 확대로 구매 심리 장벽 완화 — 라이브 없이도 상시 경쟁력 확보</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="role-block hanssem">
+        <div class="role-label hanssem">한샘 실행</div>
+        <div class="role-items hanssem">무이자 할부 비용 분담 협의<br>카드사별 혜택 조건 설계<br>고가 상품군 우선 적용</div>
+      </div>
+      <div class="role-block cj">
+        <div class="role-label cj">CJ 협의·요청</div>
+        <div class="role-items cj">SDP 상단 할부 혜택 노출<br>"무이자 N개월" 딱지 표시<br>결제 페이지 혜택 안내 강화</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실현 가능성</span>
+      <div class="pip pip-purple"></div><div class="pip pip-purple"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip"></div>
+      <span class="effort-text">비용 분담 구조 합의 필요 — 효과 대비 ROI 먼저 검토</span>
+    </div>
+  </div>
+
+  <div class="note">
+    딱지(배지) 노출 협의 시 우선순위: CJ MD에게 <strong>"노출 보장 + 쿠폰 분담"</strong> 패키지로 제안하면 수락률이 높음. 한샘이 가격 인하 비용을 부담하고 CJ가 추가 쿠폰 지원을 하는 공동 프로모션 구조로 접근하면 협의 시간을 단축할 수 있음.
+  </div>
+</div>
+</body>
+</html>

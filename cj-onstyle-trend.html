@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CJ온스타일 3개년 주문 추이 분석</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      padding: 32px 20px;
+    }
+
+    .page-wrap { max-width: 1100px; margin: 0 auto; }
+
+    /* ── 헤더 ── */
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    .header .sub { font-size: 13px; color: #aab4c8; margin-top: 6px; }
+    .badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #cdd5e0;
+      white-space: nowrap;
+    }
+    .badge strong { display: block; font-size: 20px; color: #fff; margin-top: 2px; }
+
+    /* ── 섹션 공통 ── */
+    section { margin-bottom: 28px; }
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 14px;
+      padding-left: 10px;
+      border-left: 4px solid #0f3460;
+    }
+
+    /* ── KPI 카드 ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-top: 4px solid #ddd;
+      position: relative;
+    }
+    .kpi-card.y2022 { border-top-color: #94a3b8; }
+    .kpi-card.y2023 { border-top-color: #3b82f6; }
+    .kpi-card.y2024 { border-top-color: #10b981; }
+    .kpi-card.y2025 { border-top-color: #ef4444; }
+    .kpi-card .year { font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 4px; }
+    .kpi-card .amount { font-size: 26px; font-weight: 700; color: #1a1a2e; line-height: 1.1; }
+    .kpi-card .amount span { font-size: 14px; font-weight: 500; color: #64748b; }
+    .kpi-card .meta { margin-top: 10px; font-size: 12px; color: #64748b; line-height: 1.8; }
+    .kpi-card .change {
+      position: absolute; top: 18px; right: 16px;
+      font-size: 12px; font-weight: 700;
+      padding: 3px 8px; border-radius: 20px;
+    }
+    .up { background: #dcfce7; color: #16a34a; }
+    .down { background: #fee2e2; color: #dc2626; }
+    .note-tag {
+      font-size: 10px; background: #f1f5f9; color: #94a3b8;
+      border-radius: 4px; padding: 2px 6px;
+      display: inline-block; margin-bottom: 6px;
+    }
+
+    /* ── 테이블 공통 ── */
+    .table-wrap {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 11px 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody tr:hover { background: #eff6ff; }
+    tbody td {
+      padding: 9px 14px;
+      text-align: center;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+    }
+    tbody td.left { text-align: left; }
+    .highlight-row { background: #fef9c3 !important; font-weight: 600; }
+    .dim-row { color: #94a3b8 !important; }
+    .dim-row td { color: #94a3b8; }
+
+    /* ── 월별 차트 바 ── */
+    .bar-cell { position: relative; text-align: left !important; padding: 6px 14px !important; }
+    .bar-bg {
+      height: 18px; border-radius: 4px;
+      background: #e0f2fe;
+      display: inline-block;
+      vertical-align: middle;
+      min-width: 4px;
+    }
+    .bar-bg.y2023 { background: #bfdbfe; }
+    .bar-bg.y2024 { background: #6ee7b7; }
+    .bar-bg.y2025 { background: #fca5a5; }
+    .bar-bg.y2026 { background: #d1d5db; }
+    .bar-label {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 8px;
+      font-size: 12px;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    /* ── 카테고리 히트맵 ── */
+    .heat-high   { background: #059669 !important; color: #fff !important; font-weight: 700; }
+    .heat-mid    { background: #34d399 !important; color: #fff !important; }
+    .heat-low    { background: #a7f3d0 !important; color: #065f46 !important; }
+    .heat-vlow   { background: #ecfdf5 !important; color: #6b7280 !important; }
+    .heat-none   { background: #f9fafb !important; color: #d1d5db !important; }
+
+    /* ── 인사이트 박스 ── */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .insight-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .insight-card h4 {
+      font-size: 13px; font-weight: 700;
+      color: #1a1a2e; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .icon {
+      width: 24px; height: 24px; border-radius: 6px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+    }
+    .icon.green { background: #dcfce7; }
+    .icon.red   { background: #fee2e2; }
+    .icon.blue  { background: #dbeafe; }
+    .icon.amber { background: #fef3c7; }
+    .insight-card ul { list-style: none; padding: 0; }
+    .insight-card ul li {
+      font-size: 12.5px; color: #475569;
+      padding: 4px 0; border-bottom: 1px solid #f1f5f9;
+      line-height: 1.5;
+    }
+    .insight-card ul li:last-child { border-bottom: none; }
+    .pill {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      padding: 1px 7px; border-radius: 10px;
+      margin-right: 4px;
+    }
+    .pill.green { background: #dcfce7; color: #16a34a; }
+    .pill.red   { background: #fee2e2; color: #dc2626; }
+    .pill.blue  { background: #dbeafe; color: #1d4ed8; }
+    .pill.amber { background: #fef3c7; color: #b45309; }
+
+    /* ── 푸터 ── */
+    .footer {
+      text-align: center; font-size: 11px; color: #94a3b8; margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .insight-grid { grid-template-columns: 1fr; }
+      .header { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div>
+      <h1>CJ온스타일 3개년 주문 추이 분석</h1>
+      <div class="sub">발주처 채널 분석 · 2022.12 – 2026.03 · PB 주문내역 기준</div>
+    </div>
+    <a href="index.html" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:#e2e8f0;text-decoration:none;font-weight:600;white-space:nowrap;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">← 메인으로</a>
+      <div class="badge">
+      분석 기준<strong>2026. 04</strong>
+    </div>
+  </div>
+
+  <!-- KPI 카드 -->
+  <section>
+    <div class="section-title">연도별 핵심 지표</div>
+    <div class="kpi-grid">
+
+      <div class="kpi-card y2022">
+        <div class="note-tag">참고 (12월만)</div>
+        <div class="year">2022</div>
+        <div class="amount">3.9<span>억원</span></div>
+        <div class="meta">
+          최종수량 1,038개<br>
+          취소율 14.5%
+        </div>
+      </div>
+
+      <div class="kpi-card y2023">
+        <div class="year">2023</div>
+        <div class="amount">33.4<span>억원</span></div>
+        <div class="meta">
+          최종수량 10,044개<br>
+          취소율 15.1%
+        </div>
+      </div>
+
+      <div class="kpi-card y2024">
+        <span class="change up">최고 ↑</span>
+        <div class="year">2024</div>
+        <div class="amount">56.8<span>억원</span></div>
+        <div class="meta">
+          최종수량 13,843개<br>
+          취소율 15.4%<br>
+          <strong style="color:#10b981">전년比 +70.2%</strong>
+        </div>
+      </div>
+
+      <div class="kpi-card y2025">
+        <span class="change down">급감 ↓</span>
+        <div class="year">2025</div>
+        <div class="amount">14.4<span>억원</span></div>
+        <div class="meta">
+          최종수량 3,490개<br>
+          취소율 15.7%<br>
+          <strong style="color:#ef4444">전년比 −74.7%</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 인사이트 -->
+  <section>
+    <div class="section-title">핵심 인사이트</div>
+    <div class="insight-grid">
+
+      <div class="insight-card">
+        <h4><span class="icon green">📈</span>2023→2024 성장 동인</h4>
+        <ul>
+          <li><span class="pill green">+70%</span>최종금액 33.4억 → 56.8억으로 급성장</li>
+          <li><span class="pill blue">거실</span>거실 카테고리 2024년 192.6억 달성 (전년比 +337%)</li>
+          <li><span class="pill blue">침실</span>침실도 37.0억 → 81.9억으로 2배 이상 성장</li>
+          <li>2024년 3월 7.6억, 8월 6.9억으로 상·하반기 두 차례 피크</li>
+        </ul>
+      </div>
+
+      <div class="insight-card">
+        <h4><span class="icon red">📉</span>2025년 급감 패턴</h4>
+        <ul>
+          <li><span class="pill red">−75%</span>연간 56.8억 → 14.4억으로 대폭 축소</li>
+          <li><span class="pill amber">변곡점</span>2025년 6월 이후 월 1~3억 수준으로 급락</li>
+          <li>2025년 7월 최종수량 68개, 금액 0.3억 — 사실상 거래 단절 수준</li>
+          <li>전 카테고리 동시 감소 → 특정 상품 이슈보다 채널 차원 요인 추정</li>
+        </ul>
+      </div>
+
+      <div class="insight-card">
+        <h4><span class="icon blue">🗂️</span>카테고리 트렌드 변화</h4>
+        <ul>
+          <li><span class="pill blue">2023 1위</span>키즈룸 (89.4억) → 2024 4위로 비중 하락</li>
+          <li><span class="pill green">2024 1위</span>거실이 전체 매출의 33.9% 차지</li>
+          <li>옷장·드레스룸은 3개년 내내 상위 2위권 유지 — 안정적 수요</li>
+          <li>2025년에도 거실 → 드레스룸 → 키즈룸 순위 유지</li>
+        </ul>
+      </div>
+
+      <div class="insight-card">
+        <h4><span class="icon amber">⚠️</span>취소율 동향</h4>
+        <ul>
+          <li>2022~2024년 취소율 14~16% 내외로 안정적 유지</li>
+          <li>2025년 초 취소율 상승 시작 (2월 21.0%)</li>
+          <li><span class="pill red">26.7%</span>2025년 12월 취소율 급등</li>
+          <li><span class="pill red">29.3%</span>2026년 2월 최고치 — 거래량 감소와 동반 불안정화</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 팀 구분별 매출 -->
+  <section>
+    <div class="section-title">팀 구분별 연도별 최종금액 (단위: 억원, 상품정보 마스터 기준)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>팀 구분</th>
+            <th>2022 (12월)</th>
+            <th>2023</th>
+            <th>2024</th>
+            <th>2025</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left"><strong>소파거실팀</strong></td>
+            <td class="heat-vlow">0.57억</td>
+            <td class="heat-low">4.46억</td>
+            <td class="heat-high">19.28억</td>
+            <td class="heat-low">4.33억</td>
+            <td style="font-size:11px;color:#64748b;text-align:left">2024 최대 팀 (+332% YoY) → 2025 급감</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>옷장수납팀</strong></td>
+            <td class="heat-vlow">0.98억</td>
+            <td class="heat-mid">7.67억</td>
+            <td class="heat-high">11.01억</td>
+            <td class="heat-low">3.57억</td>
+            <td style="font-size:11px;color:#64748b;text-align:left">3개년 꾸준한 상위권 유지</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>키즈자녀팀</strong></td>
+            <td class="heat-vlow">0.34억</td>
+            <td class="heat-mid">8.95억</td>
+            <td class="heat-mid">6.90억</td>
+            <td class="heat-low">1.83억</td>
+            <td style="font-size:11px;color:#64748b;text-align:left">2023 1위 → 2024 4위로 하락</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>식탁/소가구팀</strong></td>
+            <td class="heat-low">1.34억</td>
+            <td class="heat-mid">5.81억</td>
+            <td class="heat-mid">6.85억</td>
+            <td class="heat-low">1.81억</td>
+            <td style="font-size:11px;color:#64748b;text-align:left">2023~2024 꾸준한 성장 후 2025 급감</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>침실팀</strong></td>
+            <td class="heat-vlow">0.42억</td>
+            <td class="heat-low">3.89억</td>
+            <td class="heat-mid">8.30억</td>
+            <td class="heat-low">1.71억</td>
+            <td style="font-size:11px;color:#64748b;text-align:left">2024 급성장 후 2025 급감</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>서재자녀방팀</strong></td>
+            <td class="heat-vlow">0.30억</td>
+            <td class="heat-low">2.58억</td>
+            <td class="heat-low">4.46억</td>
+            <td class="heat-low">1.14억</td>
+            <td style="font-size:11px;color:#64748b;text-align:left">전 기간 완만한 성장 후 2025 감소</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 월별 추이 테이블 -->
+  <section>
+    <div class="section-title">월별 주문 추이 (최종금액 기준)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:80px">연도-월</th>
+            <th>최종금액</th>
+            <th style="width:55%">금액 바</th>
+            <th>최종수량</th>
+            <th>주문수량</th>
+            <th>취소율</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 2022 -->
+          <tr class="dim-row">
+            <td>2022/12</td><td>3.9억</td>
+            <td class="bar-cell"><div class="bar-bg" style="width:5%"></div><span class="bar-label">3.9억</span></td>
+            <td>1,038</td><td>1,214</td><td>14.5%</td>
+          </tr>
+          <!-- 2023 -->
+          <tr><td>2023/01</td><td>3.6억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:4.8%"></div><span class="bar-label">3.6억</span></td>
+            <td>1,172</td><td>1,373</td><td>14.6%</td></tr>
+          <tr><td>2023/02</td><td>3.7억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:4.9%"></div><span class="bar-label">3.7억</span></td>
+            <td>1,142</td><td>1,364</td><td>16.3%</td></tr>
+          <tr><td>2023/03</td><td>3.6억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:4.8%"></div><span class="bar-label">3.6억</span></td>
+            <td>1,298</td><td>1,536</td><td>15.5%</td></tr>
+          <tr><td>2023/04</td><td>1.5억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:2.0%"></div><span class="bar-label">1.5억</span></td>
+            <td>458</td><td>535</td><td>14.4%</td></tr>
+          <tr><td>2023/05</td><td>4.1억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:5.5%"></div><span class="bar-label">4.1억</span></td>
+            <td>1,076</td><td>1,249</td><td>13.9%</td></tr>
+          <tr><td>2023/06</td><td>1.6억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:2.1%"></div><span class="bar-label">1.6억</span></td>
+            <td>411</td><td>488</td><td>15.8%</td></tr>
+          <tr><td>2023/07</td><td>2.5억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:3.3%"></div><span class="bar-label">2.5억</span></td>
+            <td>587</td><td>690</td><td>14.9%</td></tr>
+          <tr><td>2023/08</td><td>2.0억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:2.6%"></div><span class="bar-label">2.0억</span></td>
+            <td>483</td><td>581</td><td>16.9%</td></tr>
+          <tr><td>2023/09</td><td>1.4억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:1.9%"></div><span class="bar-label">1.4억</span></td>
+            <td>369</td><td>438</td><td>15.8%</td></tr>
+          <tr class="highlight-row"><td>2023/10</td><td>5.5억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:7.2%"></div><span class="bar-label">5.5억 ★ 연간최고</span></td>
+            <td>1,763</td><td>2,095</td><td>15.8%</td></tr>
+          <tr><td>2023/11</td><td>1.3억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:1.7%"></div><span class="bar-label">1.3억</span></td>
+            <td>367</td><td>434</td><td>15.4%</td></tr>
+          <tr><td>2023/12</td><td>2.5억</td>
+            <td class="bar-cell"><div class="bar-bg y2023" style="width:3.4%"></div><span class="bar-label">2.5억</span></td>
+            <td>918</td><td>1,053</td><td>12.8%</td></tr>
+          <!-- 2024 -->
+          <tr><td>2024/01</td><td>2.1억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:2.8%"></div><span class="bar-label">2.1억</span></td>
+            <td>651</td><td>790</td><td>17.6%</td></tr>
+          <tr><td>2024/02</td><td>6.3억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:8.4%"></div><span class="bar-label">6.3억</span></td>
+            <td>1,661</td><td>1,996</td><td>16.8%</td></tr>
+          <tr class="highlight-row"><td>2024/03</td><td>7.6억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:100%"></div><span class="bar-label">7.6억 ★ 전체최고</span></td>
+            <td>2,132</td><td>2,578</td><td>17.3%</td></tr>
+          <tr><td>2024/04</td><td>5.0억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:65.9%"></div><span class="bar-label">5.0억</span></td>
+            <td>1,258</td><td>1,514</td><td>16.9%</td></tr>
+          <tr><td>2024/05</td><td>4.2억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:55.5%"></div><span class="bar-label">4.2억</span></td>
+            <td>852</td><td>1,055</td><td>19.2%</td></tr>
+          <tr><td>2024/06</td><td>4.3억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:56.6%"></div><span class="bar-label">4.3억</span></td>
+            <td>991</td><td>1,123</td><td>11.8%</td></tr>
+          <tr><td>2024/07</td><td>3.5억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:46.8%"></div><span class="bar-label">3.5억</span></td>
+            <td>853</td><td>977</td><td>12.7%</td></tr>
+          <tr><td>2024/08</td><td>6.9억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:91.9%"></div><span class="bar-label">6.9억</span></td>
+            <td>1,527</td><td>1,778</td><td>14.1%</td></tr>
+          <tr><td>2024/09</td><td>5.0억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:66.6%"></div><span class="bar-label">5.0억</span></td>
+            <td>1,189</td><td>1,348</td><td>11.8%</td></tr>
+          <tr><td>2024/10</td><td>5.1억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:66.9%"></div><span class="bar-label">5.1억</span></td>
+            <td>1,259</td><td>1,479</td><td>14.9%</td></tr>
+          <tr><td>2024/11</td><td>2.6억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:34.4%"></div><span class="bar-label">2.6억</span></td>
+            <td>556</td><td>658</td><td>15.5%</td></tr>
+          <tr><td>2024/12</td><td>4.2억</td>
+            <td class="bar-cell"><div class="bar-bg y2024" style="width:55.4%"></div><span class="bar-label">4.2억</span></td>
+            <td>914</td><td>1,069</td><td>14.5%</td></tr>
+          <!-- 2025 -->
+          <tr><td>2025/01</td><td>1.0억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:13.6%"></div><span class="bar-label">1.0억</span></td>
+            <td>272</td><td>335</td><td>18.8%</td></tr>
+          <tr><td>2025/02</td><td>1.8억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:23.7%"></div><span class="bar-label">1.8억</span></td>
+            <td>407</td><td>515</td><td>21.0%</td></tr>
+          <tr><td>2025/03</td><td>2.8억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:36.9%"></div><span class="bar-label">2.8억</span></td>
+            <td>682</td><td>778</td><td>12.3%</td></tr>
+          <tr><td>2025/04</td><td>3.0억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:39.8%"></div><span class="bar-label">3.0억</span></td>
+            <td>787</td><td>902</td><td>12.7%</td></tr>
+          <tr><td>2025/05</td><td>3.0억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:39.5%"></div><span class="bar-label">3.0억</span></td>
+            <td>596</td><td>702</td><td>15.1%</td></tr>
+          <tr style="background:#fff7ed"><td><strong>2025/06</strong></td><td><strong style="color:#ef4444">0.9억</strong></td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:11.5%"></div><span class="bar-label" style="color:#ef4444">0.9억 ▼ 급감시작</span></td>
+            <td>245</td><td>284</td><td>13.7%</td></tr>
+          <tr><td>2025/07</td><td>0.3억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:4.1%"></div><span class="bar-label">0.3억</span></td>
+            <td>68</td><td>75</td><td>9.3%</td></tr>
+          <tr><td>2025/08</td><td>0.7억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:8.9%"></div><span class="bar-label">0.7억</span></td>
+            <td>197</td><td>239</td><td>17.6%</td></tr>
+          <tr><td>2025/09</td><td>0.1억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:1.8%"></div><span class="bar-label">0.1억</span></td>
+            <td>25</td><td>31</td><td>19.4%</td></tr>
+          <tr><td>2025/10</td><td>0.2억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:2.3%"></div><span class="bar-label">0.2억</span></td>
+            <td>61</td><td>77</td><td>20.8%</td></tr>
+          <tr><td>2025/11</td><td>0.2억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:3.2%"></div><span class="bar-label">0.2억</span></td>
+            <td>40</td><td>50</td><td>20.0%</td></tr>
+          <tr><td>2025/12</td><td>0.4억</td>
+            <td class="bar-cell"><div class="bar-bg y2025" style="width:5.4%"></div><span class="bar-label">0.4억</span></td>
+            <td>110</td><td>150</td><td>26.7%</td></tr>
+          <!-- 2026 -->
+          <tr class="dim-row"><td>2026/01</td><td>0.7억</td>
+            <td class="bar-cell"><div class="bar-bg y2026" style="width:9.9%"></div><span class="bar-label">0.7억</span></td>
+            <td>176</td><td>200</td><td>12.0%</td></tr>
+          <tr class="dim-row"><td>2026/02</td><td>0.2억</td>
+            <td class="bar-cell"><div class="bar-bg y2026" style="width:2.8%"></div><span class="bar-label">0.2억</span></td>
+            <td>58</td><td>82</td><td>29.3%</td></tr>
+          <tr class="dim-row"><td>2026/03</td><td>0.5억</td>
+            <td class="bar-cell"><div class="bar-bg y2026" style="width:6.2%"></div><span class="bar-label">0.5억</span></td>
+            <td>109</td><td>119</td><td>8.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    데이터 출처: 3개년 PB 주문내역(주문번호삭제) · 분석 대상: 발주처 = CJ온스타일 · 기간: 2022.12 – 2026.03
+  </div>
+
+</div>
+</body>
+</html>
