@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한샘 자체 실행 — 상시 매출 성장 전략</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 2rem; }
+
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: #aaa; margin-bottom: 10px;
+  }
+  .divider { border: none; border-top: 0.5px solid #ddd; margin: 1.75rem 0; }
+
+  .tier-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .tier-box {
+    background: #fff; border: 0.5px solid #e0ddd7;
+    border-radius: 10px; padding: 0.7rem 0.9rem; text-align: center;
+  }
+  .tier-name { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+  .tier-sub { font-size: 10px; color: #aaa; }
+
+  .s-card {
+    background: #fff;
+    border: 0.5px solid #e0ddd7;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .s-header { display: flex; align-items: flex-start; gap: 10px; padding: 1rem 1.2rem 0.8rem; }
+  .s-num { font-size: 10px; font-weight: 600; color: #bbb; min-width: 20px; padding-top: 2px; }
+  .s-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+  .s-desc { font-size: 11.5px; color: #777; line-height: 1.55; }
+
+  .s-body {
+    border-top: 0.5px solid #ece9e4;
+    padding: 0.8rem 1.2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 10px;
+  }
+  .action-label { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; color: #bbb; margin-bottom: 5px; }
+  .action-items { font-size: 11px; color: #666; line-height: 1.75; }
+
+  .impact-block {
+    background: #f5f4f0;
+    border-radius: 8px;
+    padding: 0.65rem 0.8rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .impact-label { font-size: 10px; color: #aaa; margin-bottom: 4px; }
+  .impact-val { font-size: 12px; font-weight: 500; color: #1a1a1a; line-height: 1.6; }
+
+  .effort-bar { display: flex; gap: 4px; align-items: center; padding: 0 1.2rem 0.8rem; }
+  .effort-label { font-size: 10px; color: #bbb; margin-right: 4px; }
+  .pip { width: 6px; height: 6px; border-radius: 50%; background: #e0ddd7; }
+  .pip-green { background: #639922; }
+  .pip-amber { background: #BA7517; }
+  .effort-text { font-size: 10px; color: #aaa; margin-left: 4px; }
+
+  .note {
+    background: #eeecea;
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    font-size: 11.5px;
+    color: #666;
+    line-height: 1.65;
+    margin-top: 0.5rem;
+  }
+  .note strong { color: #1a1a1a; font-weight: 600; }
+</style>
+</head>
+<body>
+<a href="index.html" style="position:fixed;top:14px;right:20px;z-index:9999;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);color:#e2e8f0;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;text-decoration:none;font-family:'Segoe UI','Malgun Gothic',sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.25)" onmouseover="this.style.background='#0f3460'" onmouseout="this.style.background='#1a1a2e'">← 메인으로</a>
+
+<div class="container">
+  <h1>한샘 자체 실행 — 상시 매출 성장 전략</h1>
+  <p class="subtitle">CJ 온스타일과 협의 없이 한샘이 단독으로 실행 가능한 전략</p>
+
+  <p class="section-label">실행 레벨별 분류</p>
+  <div class="tier-row">
+    <div class="tier-box">
+      <div class="tier-name" style="color:#3B6D11;">즉시 실행</div>
+      <div class="tier-sub">협의·개발 불필요</div>
+    </div>
+    <div class="tier-box">
+      <div class="tier-name" style="color:#BA7517;">단기 준비 필요</div>
+      <div class="tier-sub">내부 기획 1~4주</div>
+    </div>
+    <div class="tier-box">
+      <div class="tier-name" style="color:#534AB7;">구조적 변화</div>
+      <div class="tier-sub">중장기 세팅 필요</div>
+    </div>
+  </div>
+
+  <p class="section-label">즉시 실행 가능</p>
+
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">01</span>
+      <div>
+        <div class="s-title">상품 상세페이지(SDP) 콘텐츠 품질 개선</div>
+        <div class="s-desc">라이브 없이도 구매를 결정하게 만드는 가장 직접적인 레버. 현재 SDP가 라이브 설명에 의존하는 구조라면, 페이지 자체가 설득해야 함</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div>
+        <div class="action-label">구체 실행</div>
+        <div class="action-items">
+          · 실측 치수·공간별 배치 가이드 추가<br>
+          · 소재·내구성 스펙 텍스트 보강<br>
+          · 라이브 방송 하이라이트 영상 직접 삽입<br>
+          · 실사용 고객 후기 이미지 큐레이션
+        </div>
+      </div>
+      <div class="impact-block">
+        <div class="impact-label">기대 효과</div>
+        <div class="impact-val">전환율 직접 개선<br>반품·문의 감소<br>추가 비용 없음</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실행 난이도</span>
+      <div class="pip pip-green"></div><div class="pip pip-green"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+      <span class="effort-text">콘텐츠 제작 리소스만 필요</span>
+    </div>
+  </div>
+
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">02</span>
+      <div>
+        <div class="s-title">상품 리뷰 수집 체계화</div>
+        <div class="s-desc">구매 후 리뷰 작성을 유도하는 자체 프로세스 구축. 리뷰는 상시 트래픽 유입과 전환율 모두에 영향</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div>
+        <div class="action-label">구체 실행</div>
+        <div class="action-items">
+          · 배송 완료 후 N일 리뷰 요청 문자 발송<br>
+          · 사진 리뷰 작성 시 포인트·쿠폰 지급<br>
+          · 공간별(침실/거실) 인테리어 컷 유도<br>
+          · 우수 리뷰 SDP 상단 노출 선별
+        </div>
+      </div>
+      <div class="impact-block">
+        <div class="impact-label">기대 효과</div>
+        <div class="impact-val">신규 고객 전환율↑<br>검색 SEO 개선<br>UGC 자산 누적</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실행 난이도</span>
+      <div class="pip pip-green"></div><div class="pip pip-green"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+      <span class="effort-text">CRM 문자 발송 체계만 있으면 즉시 가능</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-label">단기 준비 후 실행 (1~4주)</p>
+
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">03</span>
+      <div>
+        <div class="s-title">라이브 방송 전 "예고 콘텐츠" 자체 발행</div>
+        <div class="s-desc">라이브 전에 SNS·카카오채널 등 자체 채널에서 예고를 올려, 방송 시청자를 직접 모집하고 사전 관심을 유도</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div>
+        <div class="action-label">구체 실행</div>
+        <div class="action-items">
+          · 방송 D-2 인스타·카카오 예고 영상<br>
+          · "이번 방송 특가 상품" 티저 이미지<br>
+          · 카카오채널 알림 신청 유도<br>
+          · 방송 후 요약본 자체 SNS 재배포
+        </div>
+      </div>
+      <div class="impact-block">
+        <div class="impact-label">기대 효과</div>
+        <div class="impact-val">방송 시청자 수↑<br>자체 팬덤 형성<br>라이브 외 접점 확보</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실행 난이도</span>
+      <div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip"></div><div class="pip"></div>
+      <span class="effort-text">콘텐츠 담당자 or 에이전시 운영 필요</span>
+    </div>
+  </div>
+
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">04</span>
+      <div>
+        <div class="s-title">구매 고객 CRM 세그먼트 재구매 캠페인</div>
+        <div class="s-desc">기존 구매 고객을 구매 카테고리·시점별로 분류해 맞춤 메시지 발송. 가구는 이사·리모델링 주기가 있어 타이밍 마케팅이 유효</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div>
+        <div class="action-label">구체 실행</div>
+        <div class="action-items">
+          · 구매 후 6개월·1년 기념 프로모션 문자<br>
+          · 침실 구매자 → 거실 코디 추천 발송<br>
+          · 이사 시즌(3~4월, 9~10월) 사전 타겟팅<br>
+          · 장기 미구매 고객 재활성 쿠폰 발송
+        </div>
+      </div>
+      <div class="impact-block">
+        <div class="impact-label">기대 효과</div>
+        <div class="impact-val">재구매율↑<br>LTV 상승<br>라이브 비의존 매출</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실행 난이도</span>
+      <div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip"></div><div class="pip"></div>
+      <span class="effort-text">구매 데이터 세그먼트 분류 작업 선행 필요</span>
+    </div>
+  </div>
+
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">05</span>
+      <div>
+        <div class="s-title">자체 쇼핑몰·타채널 병행 강화</div>
+        <div class="s-desc">한샘닷컴, 네이버 스마트스토어 등 자체 채널 트래픽을 키워 CJ 라이브 의존도 자체를 분산시키는 근본 전략</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div>
+        <div class="action-label">구체 실행</div>
+        <div class="action-items">
+          · 네이버 플레이스·쇼핑 검색 최적화<br>
+          · 한샘닷컴 전용 상시 특가 상품 운영<br>
+          · 오프라인 매장 방문객 온라인 전환 유도<br>
+          · 유튜브 인테리어 콘텐츠 → 상품 링크 연결
+        </div>
+      </div>
+      <div class="impact-block">
+        <div class="impact-label">기대 효과</div>
+        <div class="impact-val">채널 리스크 분산<br>마진 구조 개선<br>고객 데이터 직접 확보</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실행 난이도</span>
+      <div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip"></div>
+      <span class="effort-text">채널 전략 재편 — 중기 관점으로 접근 필요</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-label">구조적 변화 (중장기)</p>
+
+  <div class="s-card">
+    <div class="s-header">
+      <span class="s-num">06</span>
+      <div>
+        <div class="s-title">인테리어 콘텐츠 기반 검색 유입 구조 구축</div>
+        <div class="s-desc">"침실 인테리어 추천", "소파 고르는 법" 등 검색 수요가 있는 콘텐츠를 생산해 구매 전 단계 고객을 직접 유입</div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div>
+        <div class="action-label">구체 실행</div>
+        <div class="action-items">
+          · 공간별 인테리어 가이드 블로그 운영<br>
+          · 유튜브 쇼룸 투어·코디 추천 콘텐츠<br>
+          · 네이버 검색 SEO 키워드 상품 연결<br>
+          · 카카오톡 채널 구독자 대상 콘텐츠 발행
+        </div>
+      </div>
+      <div class="impact-block">
+        <div class="impact-label">기대 효과</div>
+        <div class="impact-val">검색 트래픽 확보<br>브랜드 인지도↑<br>장기 자산 누적</div>
+      </div>
+    </div>
+    <div class="effort-bar">
+      <span class="effort-label">실행 난이도</span>
+      <div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div><div class="pip pip-amber"></div>
+      <span class="effort-text">콘텐츠 팀 or 파트너 에이전시 운영 체계 필요</span>
+    </div>
+  </div>
+
+  <div class="note">
+    CJ 온스타일 내 상시 매출 관점에서 가장 빠른 임팩트는 <strong>01 SDP 품질 개선 + 02 리뷰 체계화</strong>입니다. 두 가지 모두 CJ 협의 없이 한샘이 직접 올릴 수 있는 콘텐츠이고, 전환율에 직접 붙는 레버이기 때문에 우선 착수를 권장합니다.
+  </div>
+</div>
+</body>
+</html>
