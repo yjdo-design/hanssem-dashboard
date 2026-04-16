@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한샘 제휴몰 분석 허브</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Segoe UI','Malgun Gothic',sans-serif;
+  background:linear-gradient(160deg,#0d1b2e 0%,#1a1a2e 45%,#0f3460 100%);
+  min-height:100vh;color:#f0f4f8;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.header{
+  padding:48px 48px 40px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.15);
+  backdrop-filter:blur(8px);
+}
+.header-inner{max-width:960px;margin:0 auto}
+.brand{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:#60a5fa;margin-bottom:14px;
+  background:rgba(59,130,246,.12);padding:4px 12px;border-radius:20px;
+  border:1px solid rgba(59,130,246,.25);
+}
+.header h1{font-size:32px;font-weight:800;color:#f8fafc;letter-spacing:-.5px;line-height:1.2}
+.header h1 span{color:#60a5fa}
+.header .sub{font-size:14px;color:#94a3b8;margin-top:10px;letter-spacing:.3px}
+
+/* ── Main grid ──────────────────────────────────────── */
+.main{max-width:960px;margin:0 auto;padding:40px 48px 60px}
+.section-label{
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#64748b;margin:36px 0 16px;display:flex;align-items:center;gap:8px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-full{grid-column:1/-1}
+
+/* ── Cards ──────────────────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:24px 26px;
+  transition:transform .2s,box-shadow .2s,background .2s;
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+  background:rgba(255,255,255,.08);
+}
+.card.c-blue::before{background:linear-gradient(180deg,#3b82f6,#60a5fa)}
+.card.c-green::before{background:linear-gradient(180deg,#10b981,#34d399)}
+.card.c-orange::before{background:linear-gradient(180deg,#f59e0b,#fbbf24)}
+.card.c-purple::before{background:linear-gradient(180deg,#8b5cf6,#a78bfa)}
+.card.c-teal::before{background:linear-gradient(180deg,#14b8a6,#2dd4bf)}
+
+.badge-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;font-size:12px;font-weight:800;
+  margin-bottom:12px;
+}
+.badge-blue{background:rgba(59,130,246,.2);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
+.badge-green{background:rgba(16,185,129,.2);color:#34d399;border:1px solid rgba(16,185,129,.3)}
+.badge-orange{background:rgba(245,158,11,.2);color:#fbbf24;border:1px solid rgba(245,158,11,.3)}
+.badge-purple{background:rgba(139,92,246,.2);color:#a78bfa;border:1px solid rgba(139,92,246,.3)}
+.badge-teal{background:rgba(20,184,166,.2);color:#2dd4bf;border:1px solid rgba(20,184,166,.3)}
+
+.card-title{font-size:16px;font-weight:700;color:#f1f5f9;margin-bottom:6px;line-height:1.3}
+.card-desc{font-size:12px;color:#94a3b8;line-height:1.6;margin-bottom:18px}
+
+/* ── Buttons ────────────────────────────────────────── */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;
+  text-decoration:none;cursor:pointer;transition:all .2s;white-space:nowrap;border:none;
+}
+.btn-primary{
+  background:#3b82f6;color:#fff;
+  box-shadow:0 2px 12px rgba(59,130,246,.35);
+}
+.btn-primary:hover{background:#2563eb;box-shadow:0 4px 16px rgba(59,130,246,.5);transform:translateY(-1px)}
+.btn-ghost{
+  background:rgba(255,255,255,.08);color:#cbd5e1;
+  border:1px solid rgba(255,255,255,.15);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.14);color:#f1f5f9}
+.btn-green{background:#10b981;color:#fff;box-shadow:0 2px 12px rgba(16,185,129,.3)}
+.btn-green:hover{background:#059669;transform:translateY(-1px)}
+.btn-orange{background:#f59e0b;color:#1a1a2e;box-shadow:0 2px 12px rgba(245,158,11,.3)}
+.btn-orange:hover{background:#d97706;transform:translateY(-1px)}
+.btn-purple{background:#8b5cf6;color:#fff;box-shadow:0 2px 12px rgba(139,92,246,.3)}
+.btn-purple:hover{background:#7c3aed;transform:translateY(-1px)}
+.btn-teal{background:#14b8a6;color:#fff;box-shadow:0 2px 12px rgba(20,184,166,.3)}
+.btn-teal:hover{background:#0d9488;transform:translateY(-1px)}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+
+/* ── Tag chips ──────────────────────────────────────── */
+.tag{
+  display:inline-block;padding:2px 8px;border-radius:10px;
+  font-size:10px;font-weight:600;letter-spacing:.3px;margin-right:4px;margin-bottom:4px;
+}
+.tag-blue{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.2)}
+.tag-green{background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.2)}
+.tag-orange{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.2)}
+.tag-purple{background:rgba(139,92,246,.15);color:#c4b5fd;border:1px solid rgba(139,92,246,.2)}
+
+.tags{margin-bottom:14px}
+
+/* ── Footer ─────────────────────────────────────────── */
+footer{
+  text-align:center;padding:28px 16px;
+  font-size:11px;color:#475569;
+  border-top:1px solid rgba(255,255,255,.06);
+  letter-spacing:.5px;
+}
+footer strong{color:#64748b}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media(max-width:680px){
+  .header{padding:32px 24px 28px}
+  .main{padding:28px 24px 48px}
+  .grid{grid-template-columns:1fr}
+  .header h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">Hansem Channel Analytics</div>
+    <h1>한샘 제휴몰 <span>분석 허브</span></h1>
+    <div class="sub">Channel Analytics Dashboard · 제휴몰 채널별 데이터 기반 전략 도구 모음</div>
+  </div>
+</div>
+
+<!-- ── Main ──────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- Section: 데이터 분석 -->
+  <div class="section-label">데이터 분석</div>
+  <div class="grid">
+
+    <!-- ① PB 주문 분석 대시보드 -->
+    <div class="card c-blue grid-full">
+      <div class="badge-num badge-blue">①</div>
+      <div class="card-title">PB 주문 분석 대시보드</div>
+      <div class="tags">
+        <span class="tag tag-blue">2023~2025</span>
+        <span class="tag tag-blue">채널별 매출</span>
+        <span class="tag tag-blue">YoY 비교</span>
+        <span class="tag tag-blue">카테고리 TOP10</span>
+      </div>
+      <div class="card-desc">2023~2025 3개년 채널별 매출 분석 · 카테고리별 TOP10 · YoY 비교<br>
+        발주처별 전체 순위 · 팀별 매출 분포 · 월별 추이 인터랙티브 차트</div>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="./dashboard.html">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="14" height="10" rx="2"/><path d="M5 7h6M5 10h4"/>
+          </svg>
+          대시보드 열기
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Section: 5월 전략 -->
+  <div class="section-label">5월 전략</div>
+  <div class="grid">
+
+    <!-- ② 5월 추천 전략 -->
+    <div class="card c-green">
+      <div class="badge-num badge-green">②</div>
+      <div class="card-title">5월 주차별 집중<br>카테고리 추천</div>
+      <div class="tags">
+        <span class="tag tag-green">5월</span>
+        <span class="tag tag-green">주차별</span>
+        <span class="tag tag-green">카테고리</span>
+      </div>
+      <div class="card-desc">5월 주차별 집중 카테고리 추천 전략<br>
+        주문건수 데이터 기반 강세·약세 패턴 분석</div>
+      <div class="btn-row">
+        <a class="btn btn-green" href="./may-category-guide.html">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 2v12M2 8h12"/>
+          </svg>
+          전략 보기
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Section: CJ 온스타일 -->
+  <div class="section-label">CJ 온스타일</div>
+  <div class="grid">
+
+    <!-- ③ CJ 온스타일 추이 분석 -->
+    <div class="card c-orange">
+      <div class="badge-num badge-orange">③</div>
+      <div class="card-title">CJ 온스타일<br>3개년 주문 추이 분석</div>
+      <div class="tags">
+        <span class="tag tag-orange">CJ온스타일</span>
+        <span class="tag tag-orange">3개년</span>
+        <span class="tag tag-orange">주문 추이</span>
+      </div>
+      <div class="card-desc">CJ 온스타일 3개년 주문 추이 분석<br>
+        연도별 핵심 지표 · 월별 매출 패턴 · 카테고리 분석</div>
+      <div class="btn-row">
+        <a class="btn btn-orange" href="./cj-onstyle-trend.html">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="2,12 6,6 10,9 14,3"/>
+          </svg>
+          분석 보기
+        </a>
+      </div>
+    </div>
+
+    <!-- ③-1 상시 매출 전략 2종 -->
+    <div class="card c-purple">
+      <div class="badge-num badge-purple">③-1</div>
+      <div class="card-title">상시 매출 활성화<br>실행 전략</div>
+      <div class="tags">
+        <span class="tag tag-purple">CJ온스타일</span>
+        <span class="tag tag-purple">상시매출</span>
+        <span class="tag tag-purple">전략 2종</span>
+      </div>
+      <div class="card-desc">상시 매출 성장을 위한 실행 전략 2종<br>
+        역할 분담 기준 정리 · 한샘 단독 실행 가능 항목</div>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="./cj-onstyle-strategy.html">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="8" cy="8" r="6"/><path d="M8 5v4l3 1.5"/>
+          </svg>
+          역할별 상시 매출 전략
+        </a>
+        <a class="btn btn-purple" href="./hansem-strategy.html">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+          한샘 자체 실행 전략
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <strong>한샘 제휴몰 분석</strong> · 2025 · Channel Analytics Dashboard
+</footer>
+
+</body>
+</html>
